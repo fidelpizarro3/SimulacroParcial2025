@@ -1,6 +1,8 @@
 <?php
 
 include_once "moto.php";
+include_once "cliente.php";
+
 
 class Venta{
 
@@ -81,5 +83,10 @@ class Venta{
 
     public function incorporarMoto($objMoto){
 
+        $motoActiva = $objMoto->getActiva();
+
+        if($motoActiva){
+            $coleccionMotos[] = $objMoto;
+        }
     }
 }
