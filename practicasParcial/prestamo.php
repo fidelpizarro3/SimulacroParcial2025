@@ -1,6 +1,7 @@
 <?php
 
 include_once "cuota.php";
+include_once "financiera.php";
 include_once "persona.php";
 
 
@@ -11,7 +12,7 @@ class Prestamo{
     private $monto;
     private $cantidadCuotas;
     private $tazaInteres;
-    private $coleccionCuotas;
+    private $coleccionCuotas = [];
     private $referenciaPersona;
 
 
@@ -135,10 +136,8 @@ class Prestamo{
     }
 
     public function otorgarPrestamo(){
-
         $this->setFechaOtorgamiento(date("Y-m-d"));
         $montoCuota = $this->getMonto() / $this->getCantidadCuotas();
-
         for($i=1; $i<=$this->getCantidadCuotas();$i++) { 
             $interes = $this->calcularInteresPrestamo($i);
             $cuota = new Cuota($i,$montoCuota,$interes);
@@ -148,9 +147,12 @@ class Prestamo{
 
     public function darSiguienteCuotaPagar(){
         $cuotaPagar = null;
-        $arrayCuotas[] = $this->getColeccionCuotas();
+        $arrayCuotas = $this->getColeccionCuotas();
         $i = 0;
-        while($i < $this->getCantidadCuotas() && $cuotaPagar == null ){
+        if(count($arrayCuotas)== 0){
+            $cuotaPagar == null;
+        }
+        while($i < $this->getCantidadCuotas() && $cuotaPagar == null && count($arrayCuotas) > 0 ){
             $cuota = $arrayCuotas[$i];
             if(!$cuota->getCancelada()){
             $cuotaPagar = $cuota;

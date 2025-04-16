@@ -50,7 +50,7 @@ include_once "cuota.php";
         {
             return "Denominacion: " . $this->getDenominacion() . "\n". 
             " direccion: " . $this->getDireccion() . "\n" . 
-            " prestamos Otorgados: " . $this->getColeccionPrestamosOtorgados();
+            " prestamos Otorgados: " . count($this->getColeccionPrestamosOtorgados());
         }
 
         public function incorporarPrestamo($nuevoPrestamo){
@@ -78,7 +78,7 @@ include_once "cuota.php";
             $cuotaApagar = null;
             $i = 0;
             while($i<$largoArray && $bandera == false ){
-                if($idPrestamo == $coleccionprestamo[$i]){
+                if($idPrestamo == $coleccionprestamo[$i]->getIdentificacion()){
                     $cuotaApagar = $coleccionprestamo[$i]->darSiguienteCuotaPagar();
                     $bandera = true;
                 }

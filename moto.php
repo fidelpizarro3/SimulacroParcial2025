@@ -1,5 +1,7 @@
 <?php
-
+include_once "venta.php";
+include_once "cliente.php";
+include_once "empresa.php";
 
 class Moto {
 
@@ -80,4 +82,10 @@ class Moto {
         }
         return $precioVenta;
     }  
+
+    public function incorportarMoto($objMoto){
+       {
+            $venta->coleccionMotos();
+        }
+    }
 }
